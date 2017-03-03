@@ -1,8 +1,11 @@
 # ifdef-heaven.vim
 
+This shows where you are in `#if{def|ndef}`(preprocessor directives) blocks
+
 ## How to Install
 
 Copy `ifdef-heaven.vim` to plugin directory.
+
 ```
 $ cp ifdef-heaven.vim ~/.vim/plugin
 ```
