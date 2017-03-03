@@ -7,7 +7,7 @@
 " URL:         https://github.com/wateret/ifdef-heaven.vim
 " How To Install:
 " Copy this file to your plugin directory and map IfdefHeaven_WhereAmI
-" e.g.) 
+" e.g.)
 " $ cp ifdef-heaven.vim ~/.vim/plugin
 " Then append below to .vimrc
 " map f :call IfdefHeaven_WhereAmI() <CR>
