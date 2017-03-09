@@ -1,6 +1,14 @@
 # ifdef-heaven.vim
 
-This shows where you are in `#if{def|ndef}`(preprocessor directives) blocks
+A Vim plugin that shows where you are in `#if{def|ndef}`(preprocessor directives) blocks.
+
+![](screenshot1.png)
+
+Press the mapped key! (I use `f` for this)
+
+![](screenshot2.png)
+
+:D
 
 ## How to Install
 
@@ -20,3 +28,4 @@ map f :call IfdefHeaven_WhereAmI() <CR>
 
 Press mapped key(`f` for above example).
 It will show you the `#if***` context of current cursor position.
+
