@@ -52,10 +52,13 @@ class IfStack:
             print "<< There is no '#if***' wrapping around :D >>"
             return
 
+        lineno_width = len(str(self.stack[-1][0]))
+        print_format = "%" + str(lineno_width) + "d: %s %s"
+
         i = -1
         for e in self.stack:
             i += 1 if is_opener(e) else 0
-            print_indent(" ".join(e), i)
+            print_indent(print_format % (e[0], e[1], e[2]), i)
         print_indent("<< YOU ARE HERE! >>", i+1)
 
 try:
@@ -67,16 +70,16 @@ try:
     cursor_line = vim.current.window.cursor[0]
     source = list(vim.current.buffer)[:cursor_line]
 
-    for line in source:
+    for no, line in enumerate(source, start=1):
         line = line.strip()
 
         matches_if = re.search("^(#if|#ifdef|#ifndef|#elif)\s(.+$)", line)
         if matches_if:
             typ, cond = matches_if.groups()
-            if_stack.push((typ, cond))
+            if_stack.push((no, typ, cond))
 
         if re.search("^#else", line):
-            if_stack.push(("#else", ""))
+            if_stack.push((no, "#else", ""))
 
         if re.search("^#endif", line):
             if_stack.pop()
