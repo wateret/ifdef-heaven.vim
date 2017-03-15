@@ -29,14 +29,16 @@ def end_with_error(msg):
 
 def is_opener(tup):
     # Return false only for '#elif'
-    return tup[0] in ["#if", "#ifdef", "#ifndef"]
+    return tup[1] in ["#if", "#ifdef", "#ifndef"]
 
 def print_indent(s, i):
     print (" " * (i * INDENT)) + s
 
 class IfStack:
-    def __init__(self):
+    def __init__(self, sl, cl):
         self.stack = []
+        self.source_lines = sl
+        self.cursor_line = cl
 
     def push(self, o):
         self.stack.append(o)
@@ -52,13 +54,16 @@ class IfStack:
             print "<< There is no '#if***' wrapping around :D >>"
             return
 
-        lineno_width = len(str(self.stack[-1][0]))
-        print_format = "%" + str(lineno_width) + "d: %s %s"
+        lineno_width = len(str(source_lines))
+        lineno_format = "%" + str(lineno_width) + "d"
 
         i = -1
         for e in self.stack:
             i += 1 if is_opener(e) else 0
-            print_indent(print_format % (e[0], e[1], e[2]), i)
+            no, typ, cond = e
+            print lineno_format % no,
+            print_indent("%s %s" % (typ, cond), i)
+        print lineno_format % self.cursor_line,
         print_indent("<< YOU ARE HERE! >>", i+1)
 
 try:
@@ -66,9 +71,11 @@ try:
     import vim
     import string
 
-    if_stack = IfStack()
     cursor_line = vim.current.window.cursor[0]
-    source = list(vim.current.buffer)[:cursor_line]
+    buf = list(vim.current.buffer)
+    source = buf[:cursor_line]
+    source_lines = len(buf)
+    if_stack = IfStack(source_lines, cursor_line)
 
     for no, line in enumerate(source, start=1):
         line = line.strip()
