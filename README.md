@@ -10,12 +10,16 @@ Press the mapped key! (I use `f` for this)
 
 :D
 
+## Requirement
+
+Your vim must support `+python` or `+python3`. You may check that by `vim --version`.
+
 ## How to Install
 
-Copy `ifdef-heaven.vim` to plugin directory.
+Copy `ifdef-heaven.vim` and `ifdef-heaven.py` to plugin directory.
 
 ```
-$ cp ifdef-heaven.vim ~/.vim/plugin
+$ cp ifdef-heaven.vim ifdef-heaven.py ~/.vim/plugin
 ```
 
 Append below to `.vimrc` (binding `f` key for this plugin)
